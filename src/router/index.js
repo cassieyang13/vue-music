@@ -10,7 +10,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [// 路由配置
-    {// 默认指定跳入recommend页面
+    {// 默认指定跳入recommend页面,url后面默认添加改路径
       path: '/',
       redirect: '/recommend'
     },

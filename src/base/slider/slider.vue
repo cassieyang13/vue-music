@@ -102,7 +102,7 @@
         })
         this.slider.on('scrollEnd', () => {
           // 获取当前的index
-          let pageIndex = this.slider.getCurrentPage().pageX
+            let pageIndex = this.slider.getCurrentPage().pageX
           // 因为会clone两个div(一前一后)， 所以要减1
           if (this.loop) {
             pageIndex -= 1

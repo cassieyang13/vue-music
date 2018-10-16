@@ -29,6 +29,8 @@ export function getDiscList() {
     sortId: 5,
     needNewCode: 0,
     categoryId: 10000000,
+    inCharset: 'utf8',
+    outCharset: 'utf-8',
     rnd: Math.random(),
     format: 'json'
   })
