@@ -1,12 +1,12 @@
 <template>
   <div class="recommend">
-    <scroll class="recommend-content" :data="disclist">
+    <scroll ref="scroll" class="recommend-content" :data="disclist">
       <div>
         <div v-if="recommends.length" class="slider-wrapper">
           <slider>
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img :src="item.picUrl"/>
+                <img class="needsclick" :src="item.picUrl"/>
               </a>
             </div>
           </slider>
@@ -16,7 +16,7 @@
           <ul>
             <li v-for="(item, index) in disclist" :key="index" class="item">
               <div class="icon">
-                <img :src="item.imgurl" width="60" height="60">
+                <img @load="loadImage" v-lazy="item.imgurl" width="60" height="60">
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
@@ -26,11 +26,15 @@
           </ul>
         </div>
       </div>
+      <div class="loading-container" v-show="!disclist.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Loading from 'base/loading/loading'
   import Scroll from 'base/scroll/scroll'
   import Slider from 'base/slider/slider'
   import {getRecommend, getDiscList} from 'api/recommend'
@@ -50,7 +54,8 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     },
     methods: {
       // 发起jsonp请求获取数据
@@ -68,6 +73,13 @@
             this.disclist = res.data.list
           }
         })
+      },
+      loadImage() {
+        // 因为该处是一个循环，则我们只需触发一次该事件就可以了，所以设置一个标志位
+        if (!this.checkLoaded) {
+          this.$refs.scroll.refresh()
+          this.checkLoaded = true
+        }
       }
     }
   }
