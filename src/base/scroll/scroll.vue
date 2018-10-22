@@ -20,6 +20,10 @@
       data: {// 用来动态存取数据，
         type: Array,
         default: null
+      },
+      listenScroll: {// 用来判断是否监听scroll事件
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
@@ -37,6 +41,15 @@
           probeType: this.probeType,
           click: this.click
         })
+        // 判断是否监听
+        if (this.listenScroll) {
+          // 保存vue实例的this
+          let me = this
+          this.scroll.on('scroll', (pos) => {
+            // 向父组件派发scroll事件
+            me.$emit('scroll', pos)
+          })
+        }
       },
       // 一些代理方法
       enable() {
