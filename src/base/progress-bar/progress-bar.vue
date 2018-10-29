@@ -33,9 +33,9 @@
       progressTouchStart(e) {
         // 是否初始化flg
         this.touch.initaited = true
-        // 获取开始时候的位置
+        // 获取当前的位置
         this.touch.startX = e.touches[0].pageX
-        // 获取开始时的偏移位置
+        // 获取当前偏移位置
         this.touch.left = this.$refs.progress.clientWidth
       },
       progressTouchMove(e) {
