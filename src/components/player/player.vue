@@ -230,6 +230,8 @@
       },
       loop() {
         // 1
+        this.$refs.audio.currentTime = 0
+        this.$refs.audio.play()
       },
       updateTime(e) {
         // 获取audio的currentTime，为当前的时间
@@ -311,6 +313,7 @@
         // 加延时是因为在dom还没渲染时，就调用改play方法,这样会报错
         this.$nextTick(() => {
           this.$refs.audio.play()
+          this.currentSong.getLyric()
         })
       },
       playing(newPlaying) {
